@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account</title>
+
+<style>
+body{
+    font-family: Arial;
+    text-align:center;
+    padding:20px;
+}
+
+.box{
+    border:1px solid #ddd;
+    padding:20px;
+    border-radius:10px;
+    max-width:300px;
+    margin:auto;
+}
+
+input{
+    width:90%;
+    padding:8px;
+    margin:5px 0;
+}
+
+button{
+    background:#ff4da6;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Account System 🔐</h2>
+
+<h2>Account System 🔐</h2>
+
+<a href="index.html" style="text-decoration:none;">
+    <button style="margin-bottom:15px;">⬅ Back to Home</button>
+</a>
+
+<div class="box">
+
+<!-- LOGIN -->
+<div id="loginBox">
+
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+
+<br><br>
+
+<button onclick="register()">Register</button>
+<button onclick="login()">Login</button>
+
+</div>
+
+<!-- USER -->
+<div id="userBox" style="display:none;">
+<h3>Welcome, <span id="userText"></span></h3>
+<button onclick="logout()">Logout</button>
+</div>
+
+</div>
+
+<script>
+
+function register(){
+
+    let u = document.getElementById("username").value;
+    let p = document.getElementById("password").value;
+
+    if(!u || !p){
+        alert("Fill all fields");
+        return;
+    }
+
+    localStorage.setItem("user", u);
+    localStorage.setItem("pass", p);
+
+    alert("Registered successfully!");
+}
+
+function login(){
+
+    let u = document.getElementById("username").value;
+    let p = document.getElementById("password").value;
+
+    let su = localStorage.getItem("user");
+    let sp = localStorage.getItem("pass");
+
+    if(u === su && p === sp){
+
+        localStorage.setItem("loggedIn", u);
+        showUser();
+
+    } else {
+        alert("Wrong credentials");
+    }
+}
+
+function logout(){
+    localStorage.removeItem("loggedIn");
+    showUser();
+}
+
+function showUser(){
+
+    let user = localStorage.getItem("loggedIn");
+
+    if(user){
+        document.getElementById("loginBox").style.display="none";
+        document.getElementById("userBox").style.display="block";
+        document.getElementById("userText").innerText=user;
+    } else {
+        document.getElementById("loginBox").style.display="block";
+        document.getElementById("userBox").style.display="none";
+    }
+}
+
+window.onload = showUser;
+
+</script>
+
+</body>
+</html>

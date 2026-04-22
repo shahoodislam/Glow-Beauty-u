@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glow Beauty</title>
+
+<style>
+body{
+    background:#ffe6f2;
+}
+
+button{
+    background:#ff4da6;
+    color:white;
+    border:none;
+    padding:6px 10px;
+    border-radius:5px;
+    transition:0.2s;
+    margin:2px;
+}
+
+button:active{
+    transform:scale(0.9);
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    background:#ff4da6;
+    border-top:1px solid #ccc;
+    padding:5px 0;
+    z-index:999;
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:white;
+    text-align:center;
+    font-size:12px;
+}
+
+/* ⭐ BIG CENTER SHOP BUTTON */
+.shop-btn{
+    transform: scale(1.7);
+    background:white;
+    color:#ff4da6;
+    padding:6px 12px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+section{
+    padding:10px;
+}
+
+.card{
+    background:white;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+#loginBox{
+    display:none;
+    position:fixed;
+    top:25%;
+    left:10%;
+    width:80%;
+    background:white;
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:10px;
+    z-index:1000;
+}
+
+/* HERO */
+.hero{
+    height:100vh;
+    background:url("https://images.unsplash.com/photo-1524504388940-b1c1722653e1") center/cover no-repeat;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero-overlay{
+    background:rgba(0,0,0,0.4);
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.brand{
+    font-size:42px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.tagline{
+    font-size:16px;
+    margin:10px 0 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginBox">
+    <h3>Account Login</h3>
+
+    <input id="user" placeholder="Username"><br><br>
+    <input id="pass" type="password" placeholder="Password"><br><br>
+
+    <button onclick="register()">Register</button>
+    <button onclick="login()">Login</button>
+    <button onclick="closeLogin()">Close</button>
+
+    <p id="loginStatus"></p>
+</div>
+
+<!-- HOME -->
+<section id="homeSection" class="hero">
+
+    <div class="hero-overlay">
+        <h1 class="brand">Glow Beauty ✨</h1>
+        <p class="tagline">Premium Cosmetics for Modern Beauty</p>
+
+        <button onclick="showSection('shopSection')">Shop Now</button>
+    </div>
+
+</section>
+
+<!-- SHOP -->
+<section id="shopSection">
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1526045478516-99145907023c" style="width:100%;border-radius:8px;">
+    <h3>Velvet Glow Foundation</h3>
+    <p>Rs. 1599</p>
+    <button onclick="addToCart('Velvet Glow Foundation',1599)">Add</button>
+    <button onclick="buyNow('Velvet Glow Foundation',1599)">Buy Now</button>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348" style="width:100%;border-radius:8px;">
+    <h3>Aloe Fresh Face Wash</h3>
+    <p>Rs. 799</p>
+    <button onclick="addToCart('Aloe Fresh Face Wash',799)">Add</button>
+    <button onclick="buyNow('Aloe Fresh Face Wash',799)">Buy Now</button>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de" style="width:100%;border-radius:8px;">
+    <h3>Royal Essence Perfume</h3>
+    <p>Rs. 1999</p>
+    <button onclick="addToCart('Royal Essence Perfume',1999)">Add</button>
+    <button onclick="buyNow('Royal Essence Perfume',1999)">Buy Now</button>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1617897903246-719242758050" style="width:100%;border-radius:8px;">
+    <h3>Silk Touch Body Lotion</h3>
+    <p>Rs. 1299</p>
+    <button onclick="addToCart('Silk Touch Body Lotion',1299)">Add</button>
+    <button onclick="buyNow('Silk Touch Body Lotion',1299)">Buy Now</button>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be" style="width:100%;border-radius:8px;">
+    <h3>Daily Glow BB Cream</h3>
+    <p>Rs. 1199</p>
+    <button onclick="addToCart('Daily Glow BB Cream',1199)">Add</button>
+    <button onclick="buyNow('Daily Glow BB Cream',1199)">Buy Now</button>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd" style="width:100%;border-radius:8px;">
+    <h3>Herbal Repair Shampoo</h3>
+    <p>Rs. 1099</p>
+    <button onclick="addToCart('Herbal Repair Shampoo',1099)">Add</button>
+    <button onclick="buyNow('Herbal Repair Shampoo',1099)">Buy Now</button>
+</div>
+
+</section>
+
+<!-- CART -->
+<section id="cartSection">
+
+<h2>Your Cart</h2>
+<h3 id="totalPrice">Total: Rs 0</h3>
+<ul id="cartList"></ul>
+
+<button onclick="checkout()">Checkout on WhatsApp</button>
+
+</section>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+    <a href="#" onclick="showSection('homeSection'); return false;">🏠<br>Home</a>
+
+    <a href="#" onclick="showSection('shopSection'); return false;" class="shop-btn">🛍️<br>Shop</a>
+
+    <a href="#" onclick="showSection('cartSection'); return false;">🛒<br>Cart</a>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* ADD CART */
+function addToCart(name, price){
+    cart.push({name, price});
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+}
+
+/* BUY NOW */
+function buyNow(name, price){
+    let msg = `🛍️ Buy Now Order:%0A- ${name} Rs ${price}`;
+    window.open("https://wa.me/923305356749?text=" + msg, "_blank");
+}
+
+/* UPDATE CART */
+function updateCart(){
+
+    let list = document.getElementById("cartList");
+    let totalBox = document.getElementById("totalPrice");
+
+    list.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((item,i)=>{
+        total += item.price;
+
+        let li = document.createElement("li");
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price}
+            <button onclick="removeItem(${i})">Cancel</button>
+        `;
+        list.appendChild(li);
+    });
+
+    totalBox.innerText = "Total: Rs " + total;
+}
+
+/* REMOVE */
+function removeItem(i){
+    cart.splice(i,1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+}
+
+/* CHECKOUT */
+function checkout(){
+    let msg = "🛒 Order:%0A";
+    let total = 0;
+
+    cart.forEach(item=>{
+        msg += item.name + " Rs " + item.price + "%0A";
+        total += item.price;
+    });
+
+    msg += "%0ATotal: " + total;
+
+    window.open("https://wa.me/923305356749?text=" + msg, "_blank");
+}
+
+/* SWITCH */
+function showSection(id){
+    document.getElementById("homeSection").style.display="none";
+    document.getElementById("shopSection").style.display="none";
+    document.getElementById("cartSection").style.display="none";
+
+    document.getElementById(id).style.display="block";
+}
+
+/* START */
+window.onload = function(){
+    updateCart();
+    showSection("homeSection");
+};
+
+</script>
+
+</body>
+</html>

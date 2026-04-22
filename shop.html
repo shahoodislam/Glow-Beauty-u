@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop - Glow Beauty</title>
+
+<style>
+body{
+    font-family:Arial;
+    margin:0;
+    padding-bottom:70px;
+}
+
+/* TOP CATEGORY BAR */
+.top-bar{
+    text-align:center;
+    padding:10px;
+}
+
+button{
+    background:#ff4da6;
+    color:white;
+    border:none;
+    padding:6px 10px;
+    border-radius:5px;
+    margin:3px;
+}
+
+/* PRODUCTS */
+.product-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    padding:10px;
+}
+
+.card{
+    width:150px;
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+    border-radius:8px;
+}
+
+/* CART */
+.cart-box{
+    padding:10px;
+    border-top:1px solid #ccc;
+}
+
+/* FOOT BUTTON */
+.checkout{
+    width:100%;
+    position:fixed;
+    bottom:0;
+    left:0;
+    background:#ff4da6;
+    color:white;
+    padding:15px;
+    border:none;
+    font-size:16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- CATEGORY FILTER -->
+<div class="top-bar">
+
+<button onclick="filter('all')">All</button>
+<button onclick="filter('makeup')">Makeup 💄</button>
+<button onclick="filter('perfume')">Perfume 🌸</button>
+<button onclick="filter('skincare')">Skincare 🧴</button>
+<button onclick="filter('haircare')">Haircare 💇</button>
+
+</div>
+
+<h2 style="text-align:center;">Products</h2>
+
+<!-- PRODUCTS -->
+<div class="product-container">
+
+<div class="card makeup">
+    <h3>Lipstick</h3>
+    <p>Rs 999</p>
+    <button onclick="add('Lipstick',999)">Add</button>
+</div>
+
+<div class="card perfume">
+    <h3>Luxury Perfume</h3>
+    <p>Rs 1999</p>
+    <button onclick="add('Perfume',1999)">Add</button>
+</div>
+
+<div class="card skincare">
+    <h3>Face Cream</h3>
+    <p>Rs 1299</p>
+    <button onclick="add('Cream',1299)">Add</button>
+</div>
+
+<div class="card haircare">
+    <h3>Shampoo</h3>
+    <p>Rs 1099</p>
+    <button onclick="add('Shampoo',1099)">Add</button>
+</div>
+
+</div>
+
+<!-- CART -->
+<div class="cart-box">
+<h3>Cart Items</h3>
+<ul id="cartList"></ul>
+<h4 id="total">Total: Rs 0</h4>
+</div>
+
+<button class="checkout" onclick="checkout()">Checkout WhatsApp</button>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* ADD */
+function add(name,price){
+    cart.push({name,price});
+    save();
+    update();
+}
+
+/* SAVE */
+function save(){
+    localStorage.setItem("cart",JSON.stringify(cart));
+}
+
+/* UPDATE CART */
+function update(){
+
+    let list=document.getElementById("cartList");
+    let totalBox=document.getElementById("total");
+
+    list.innerHTML="";
+    let total=0;
+
+    cart.forEach((i,idx)=>{
+        total+=i.price;
+
+        let li=document.createElement("li");
+        li.innerHTML=i.name+" - Rs "+i.price+
+        " <button onclick='removeItem("+idx+")'>X</button>";
+
+        list.appendChild(li);
+    });
+
+    totalBox.innerText="Total: Rs "+total;
+}
+
+/* REMOVE */
+function removeItem(i){
+    cart.splice(i,1);
+    save();
+    update();
+}
+
+/* FILTER */
+function filter(cat){
+
+    let cards=document.getElementsByClassName("card");
+
+    for(let i=0;i<cards.length;i++){
+
+        if(cat==="all"){
+            cards[i].style.display="block";
+        }
+        else if(cards[i].classList.contains(cat)){
+            cards[i].style.display="block";
+        }
+        else{
+            cards[i].style.display="none";
+        }
+    }
+}
+
+/* WHATSAPP */
+function checkout(){
+
+    let msg="🛒 Order:%0A";
+    let total=0;
+
+    cart.forEach(i=>{
+        msg+=i.name+" Rs "+i.price+"%0A";
+        total+=i.price;
+    });
+
+    msg+="%0ATotal: Rs "+total;
+
+    window.open("https://wa.me/923305356749?text="+msg,"_blank");
+}
+
+/* LOAD */
+window.onload=update;
+
+</script>
+
+</body>
+</html>
