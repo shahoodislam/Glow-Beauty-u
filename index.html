@@ -1,301 +1,722 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glow Beauty</title>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Glow Beauty</title>  
 
-<style>
-body{
-    background:#ffe6f2;
-}
+<style>  
+body{  
+    background:#ffe6f2;  
+    font-family:sans-serif;  
+    margin:0;  
+}  
 
-button{
-    background:#ff4da6;
-    color:white;
-    border:none;
-    padding:6px 10px;
-    border-radius:5px;
-    transition:0.2s;
-    margin:2px;
-}
+.hero{  
+    text-align:center;  
+    padding:20px;  
+}  
 
-button:active{
-    transform:scale(0.9);
-}
+.hero-img{  
+    width:220px;  
+    height:320px;  
+    object-fit:cover;  
+    border-radius:20px;  
+    box-shadow:0 10px 25px rgba(255,0,120,0.3);  
+    margin-top:20px;  
+}  
 
-.bottom-nav{
-    position:fixed;
-    bottom:0;
+.brand{  
+    font-size:32px;  
+    color:#ff4da6;  
+    margin-top:10px;  
+}  
+
+.tagline{  
+    color:#444;  
+    margin-top:-10px;  
+}  
+
+.shop-now-btn{  
+    background:#ff4da6;  
+    color:white;  
+    border:none;  
+    padding:12px 25px;  
+    border-radius:30px;  
+    font-size:16px;  
+    font-weight:bold;  
+    margin-top:20px;  
+    cursor:pointer;  
+    box-shadow:0 8px 20px rgba(255,0,120,0.3);  
+}  
+
+/* PRODUCT CARD (slightly enhanced but same style) */  
+.product-card{  
+    background:#fff0f6;  
+    border-radius:20px;  
+    padding:15px;  
+    margin:15px;  
+    box-shadow:0 10px 25px rgba(255,0,120,0.2);  
+}  
+
+.product-card img{
     width:100%;
-    display:flex;
-    justify-content:space-around;
-    background:#ff4da6;
-    border-top:1px solid #ccc;
-    padding:5px 0;
-    z-index:999;
-}
-
-.bottom-nav a{
-    text-decoration:none;
-    color:white;
-    text-align:center;
-    font-size:12px;
-}
-
-/* ⭐ BIG CENTER SHOP BUTTON */
-.shop-btn{
-    transform: scale(1.7);
-    background:white;
-    color:#ff4da6;
-    padding:6px 12px;
-    border-radius:10px;
-    font-weight:bold;
-}
-
-section{
-    padding:10px;
-}
-
-.card{
-    background:white;
-    padding:10px;
-    border-radius:10px;
+    height:180px;
+    object-fit:cover;
+    border-radius:15px;
     margin-bottom:10px;
 }
 
-#loginBox{
-    display:none;
+.product-title{font-weight:bold;}  
+.product-price{color:#ff4da6;margin:8px 0;}  
+
+.btn-group{display:flex;gap:10px;}  
+
+button{  
+    background:#ff4da6;  
+    color:white;  
+    border:none;  
+    padding:8px;  
+    border-radius:20px;  
+    font-weight:bold;  
+}  
+
+.search-bar{  
+    width:80%;  
+    padding:12px;  
+    border-radius:25px;  
+    border:2px solid #ff4da6;  
+    margin:10px auto;  
+    display:block;  
+    text-align:center;  
+}  
+
+.bottom-nav{  
+    position:fixed;  
+    bottom:10px;  
+    left:50%;  
+    transform:translateX(-50%);  
+    width:92%;  
+    height:65px;  
+    background:white;  
+    border-radius:20px;  
+    display:flex;  
+    justify-content:space-between;  
+    align-items:center;  
+    padding:0 10px;  
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);  
+}  
+
+.nav-left,.nav-right{display:flex;gap:25px;}  
+
+.nav-item{  
+    text-align:center;  
+    font-size:11px;  
+    font-weight:bold;  
+    color:#ff4da6;  
+    position:relative;  
+    cursor:pointer;  
+    padding:6px;  
+    border-radius:10px;  
+}  
+
+.nav-item span{display:block;font-size:20px;}  
+
+.shop-btn{  
+    width:65px;  
+    height:65px;  
+    border-radius:50%;  
+    background:#ff4da6;  
+    color:white;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+    font-size:22px;  
+    box-shadow:0 0 15px #ff4da6;  
+    position:relative;  
+    top:-18px;  
+}  
+
+.badge{  
+    position:absolute;  
+    top:-5px;  
+    right:-8px;  
+    background:red;  
+    color:white;  
+    font-size:10px;  
+    width:16px;  
+    height:16px;  
+    border-radius:50%;  
+    display:flex;  
+    align-items:center;  
+    justify-content:center;  
+}  
+
+.toast{  
+    position:fixed;  
+    bottom:100px;  
+    left:50%;  
+    transform:translateX(-50%);  
+    background:#ff4da6;  
+    color:white;  
+    padding:10px 15px;  
+    border-radius:20px;  
+    font-size:13px;  
+    opacity:0;  
+    transition:0.4s;  
+    z-index:9999;  
+}  
+
+section{padding:10px;}  
+<!-- ADD THIS CSS INSIDE <style> -->
+
+.chat-btn{
     position:fixed;
-    top:25%;
-    left:10%;
-    width:80%;
-    background:white;
-    border:1px solid #ddd;
-    padding:15px;
-    border-radius:10px;
-    z-index:1000;
-}
-
-/* HERO */
-.hero{
-    height:100vh;
-    background:url("https://images.unsplash.com/photo-1524504388940-b1c1722653e1") center/cover no-repeat;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+    right:15px;
+    bottom:90px;
+    background:#ff4da6;
     color:white;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(255,0,120,0.4);
+    z-index:9999;
 }
 
-.hero-overlay{
-    background:rgba(0,0,0,0.4);
+.chat-box{
+    position:fixed;
+    right:15px;
+    bottom:160px;
+    width:270px;
+    height:340px;
+    background:white;
+    border-radius:15px;
+    display:none;
+    flex-direction:column;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:9999;
+}
+
+.chat-header{
+    background:#ff4da6;
+    color:white;
+    padding:10px;
+    font-weight:bold;
+    border-radius:15px 15px 0 0;
+}
+
+.chat-messages{
+    flex:1;
+    padding:10px;
+    font-size:13px;
+    overflow:auto;
+}
+
+.chat-input{
+    display:flex;
+    border-top:1px solid #eee;
+}
+
+.chat-input input{
+    flex:1;
+    padding:8px;
+    border:none;
+    outline:none;
+}
+
+.chat-input button{
+    background:#ff4da6;
+    color:white;
+    border:none;
+    padding:8px;
+}
+.product-card{
+    position:relative;
+}
+
+/* SALE TAG */
+.sale-tag{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:#ff2d55;
+    color:white;
+    font-size:11px;
+    font-weight:bold;
+    padding:5px 10px;
+    border-radius:20px;
+    box-shadow:0 5px 10px rgba(0,0,0,0.2);
+}
+/* AI CHAT BOT */
+.chat-btn{
+    position:fixed;
+    right:15px;
+    bottom:90px;
+    background:#ff4da6;
+    color:white;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(255,0,120,0.4);
+    z-index:9999;
+}
+
+.chat-box{
+    position:fixed;
+    right:15px;
+    bottom:160px;
+    width:280px;
+    height:360px;
+    background:white;
+    border-radius:15px;
+    display:none;
+    flex-direction:column;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:9999;
+    overflow:hidden;
+}
+
+.chat-header{
+    background:#ff4da6;
+    color:white;
+    padding:10px;
+    font-weight:bold;
+}
+
+.chat-messages{
+    flex:1;
+    padding:10px;
+    font-size:13px;
+    overflow:auto;
+}
+
+.chat-input{
+    display:flex;
+    border-top:1px solid #eee;
+}
+
+.chat-input input{
+    flex:1;
+    padding:10px;
+    border:none;
+    outline:none;
+}
+
+.chat-input button{
+    background:#ff4da6;
+    color:white;
+    border:none;
+    padding:10px;
+}
+/* PRODUCT DETAIL POPUP */
+.product-detail{
+    position:fixed;
+    top:0;
+    left:0;
     width:100%;
     height:100%;
-    display:flex;
-    flex-direction:column;
+    background:rgba(0,0,0,0.5);
+    display:none;
     justify-content:center;
     align-items:center;
-    padding:20px;
+    z-index:99999;
 }
 
-.brand{
-    font-size:42px;
-    font-weight:bold;
-    letter-spacing:2px;
+.detail-box{
+    width:85%;
+    max-width:350px;
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
 }
 
-.tagline{
-    font-size:16px;
-    margin:10px 0 20px;
+.detail-box img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:10px;
 }
-</style>
 
-</head>
+.close-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:5px 10px;
+    border-radius:10px;
+    float:right;
+    cursor:pointer;
+}
+</style>  
+</head>  
 
-<body>
+<body>  
 
-<!-- LOGIN -->
-<div id="loginBox">
-    <h3>Account Login</h3>
+<div class="toast" id="toast"></div>  
 
-    <input id="user" placeholder="Username"><br><br>
-    <input id="pass" type="password" placeholder="Password"><br><br>
+<!-- HOME -->  
+<section id="homeSection" class="hero">  
 
-    <button onclick="register()">Register</button>
-    <button onclick="login()">Login</button>
-    <button onclick="closeLogin()">Close</button>
+    <img class="hero-img" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">  
 
-    <p id="loginStatus"></p>
+    <h1 class="brand">Glow Beauty</h1>  
+    <p class="tagline">Your Daily Beauty Store</p>  
+
+    <button class="shop-now-btn" onclick="showSection('shopSection')">  
+        🛍️ Shop Now  
+    </button>  
+
+</section>  
+
+<!-- SHOP (DARAZ STYLE PRODUCTS) -->  
+<section id="shopSection" style="display:none;">  
+
+<input class="search-bar" id="search" placeholder="Search..." onkeyup="search()">  
+
+<!-- PRODUCT 1 -->  
+<div class="product-card">
+  
+<div class="sale-tag">20%off</div>
+
+<img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348">
+<div class="product-title">Velvet Glow Foundation</div>
+<div class="product-price">Rs 1599</div>
+<div class="btn-group">
+<button onclick="addToCart('Foundation',1599)">Add to Cart</button>
+<button onclick="buyNow('Foundation',1599)">Buy</button>
+</div>
 </div>
 
-<!-- HOME -->
-<section id="homeSection" class="hero">
-
-    <div class="hero-overlay">
-        <h1 class="brand">Glow Beauty ✨</h1>
-        <p class="tagline">Premium Cosmetics for Modern Beauty</p>
-
-        <button onclick="showSection('shopSection')">Shop Now</button>
-    </div>
-
-</section>
-
-<!-- SHOP -->
-<section id="shopSection">
-
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1526045478516-99145907023c" style="width:100%;border-radius:8px;">
-    <h3>Velvet Glow Foundation</h3>
-    <p>Rs. 1599</p>
-    <button onclick="addToCart('Velvet Glow Foundation',1599)">Add</button>
-    <button onclick="buyNow('Velvet Glow Foundation',1599)">Buy Now</button>
+<!-- PRODUCT 2 -->  
+<div class="product-card">
+<div class="sale-tag">10%off</div>
+<img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa">
+<div class="product-title">Matte Lipstick Set</div>
+<div class="product-price">Rs 999</div>
+<div class="btn-group">
+<button onclick="addToCart('Lipstick',999)">Add to Cart</button>
+<button onclick="buyNow('Lipstick',999)">Buy</button>
+</div>
 </div>
 
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348" style="width:100%;border-radius:8px;">
-    <h3>Aloe Fresh Face Wash</h3>
-    <p>Rs. 799</p>
-    <button onclick="addToCart('Aloe Fresh Face Wash',799)">Add</button>
-    <button onclick="buyNow('Aloe Fresh Face Wash',799)">Buy Now</button>
+<!-- PRODUCT 3 -->  
+<div class="product-card">
+<div class="sale-tag">30%off</div>
+<img src="https://images.unsplash.com/photo-1612810436541-336d6f8d1c1b">
+<div class="product-title">Hydra Glow Serum</div>
+<div class="product-price">Rs 1299</div>
+<div class="btn-group">
+<button onclick="addToCart('Serum',1299)">Add to Cart</button>
+<button onclick="buyNow('Serum',1299)">Buy</button>
+</div>
 </div>
 
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de" style="width:100%;border-radius:8px;">
-    <h3>Royal Essence Perfume</h3>
-    <p>Rs. 1999</p>
-    <button onclick="addToCart('Royal Essence Perfume',1999)">Add</button>
-    <button onclick="buyNow('Royal Essence Perfume',1999)">Buy Now</button>
+<!-- PRODUCT 4 -->  
+<div class="product-card">
+<div class="sale-tag">10%off</div>
+<img src="https://images.unsplash.com/photo-1599305090598-fe179d501227">
+<div class="product-title">Rose Face Cream</div>
+<div class="product-price">Rs 899</div>
+<div class="btn-group">
+<button onclick="addToCart('Cream',899)">Add to Cart</button>
+<button onclick="buyNow('Cream',899)">Buy</button>
+</div>
 </div>
 
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1617897903246-719242758050" style="width:100%;border-radius:8px;">
-    <h3>Silk Touch Body Lotion</h3>
-    <p>Rs. 1299</p>
-    <button onclick="addToCart('Silk Touch Body Lotion',1299)">Add</button>
-    <button onclick="buyNow('Silk Touch Body Lotion',1299)">Buy Now</button>
+<!-- PRODUCT 5 -->  
+<div class="product-card">
+<div class="sale-tag">20%off</div>
+<img src="https://images.unsplash.com/photo-1620916297397-07d0f3b4d9b1">
+<div class="product-title">Silk Mascara</div>
+<div class="product-price">Rs 799</div>
+<div class="btn-group">
+<button onclick="addToCart('Mascara',799)">Add to Cart</button>
+<button onclick="buyNow('Mascara',799)">Buy</button>
+</div>
 </div>
 
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be" style="width:100%;border-radius:8px;">
-    <h3>Daily Glow BB Cream</h3>
-    <p>Rs. 1199</p>
-    <button onclick="addToCart('Daily Glow BB Cream',1199)">Add</button>
-    <button onclick="buyNow('Daily Glow BB Cream',1199)">Buy Now</button>
+<!-- PRODUCT 6 -->  
+<div class="product-card">
+<div class="sale-tag">10%off</div>
+<img src="https://images.unsplash.com/photo-1617897903246-719242758050">
+<div class="product-title">Beauty Blush Kit</div>
+<div class="product-price">Rs 699</div>
+<div class="btn-group">
+<button onclick="addToCart('Blush',699)">Add to Cart</button>
+<button onclick="buyNow('Blush',699)">Buy</button>
+</div>
 </div>
 
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd" style="width:100%;border-radius:8px;">
-    <h3>Herbal Repair Shampoo</h3>
-    <p>Rs. 1099</p>
-    <button onclick="addToCart('Herbal Repair Shampoo',1099)">Add</button>
-    <button onclick="buyNow('Herbal Repair Shampoo',1099)">Buy Now</button>
+<!-- PRODUCT 7 -->  
+<div class="product-card">
+<div class="sale-tag">15%0ff</div>
+<img src="https://images.unsplash.com/photo-1612810436692-4b7d5c5f5c5a">
+<div class="product-title">Gloss Lip Shine</div>
+<div class="product-price">Rs 850</div>
+<div class="btn-group">
+<button onclick="addToCart('Gloss',850)">Add to Cart</button>
+<button onclick="buyNow('Gloss',850)">Buy</button>
+</div>
 </div>
 
-</section>
-
-<!-- CART -->
-<section id="cartSection">
-
-<h2>Your Cart</h2>
-<h3 id="totalPrice">Total: Rs 0</h3>
-<ul id="cartList"></ul>
-
-<button onclick="checkout()">Checkout on WhatsApp</button>
-
-</section>
-
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-
-    <a href="#" onclick="showSection('homeSection'); return false;">🏠<br>Home</a>
-
-    <a href="#" onclick="showSection('shopSection'); return false;" class="shop-btn">🛍️<br>Shop</a>
-
-    <a href="#" onclick="showSection('cartSection'); return false;">🛒<br>Cart</a>
-
+<!-- PRODUCT 8 -->  
+<div class="product-card">
+<div class="sale-tag">20%0ff</div>
+<img src="https://images.unsplash.com/photo-1626785774573-4b799315345d">
+<div class="product-title">Face Wash Cleanser</div>
+<div class="product-price">Rs 650</div>
+<div class="btn-group">
+<button onclick="addToCart('Face Wash',650)">Add to Cart</button>
+<button onclick="buyNow('Face Wash',650)">Buy</button>
 </div>
+</div>
+
+<!-- PRODUCT 9 -->  
+<div class="product-card">
+<div class="sale-tag">10%0ff</div>
+<img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e">
+<div class="product-title">Luxury Perfume</div>
+<div class="product-price">Rs 1999</div>
+<div class="btn-group">
+<button onclick="addToCart('Perfume',1999)">Add to Cart</button>
+<button onclick="buyNow('Perfume',1999)">Buy</button>
+</div>
+</div>
+
+<!-- PRODUCT 10 -->  
+<div class="product-card">
+<div class="sale-tag">50%off</div>
+<img src="https://images.unsplash.com/photo-1612810436541-4b7d5c5f5c5a">
+<div class="product-title">Eye Shadow Palette</div>
+<div class="product-price">Rs 1499</div>
+<div class="btn-group">
+<button onclick="addToCart('Eyeshadow',1499)">Add to Cart</button>
+<button onclick="buyNow('Eyeshadow',1499)">Buy</button>
+</div>
+</div>
+
+</section>  
+
+<!-- CART -->  
+<section id="cartSection" style="display:none;">  
+<h2>Cart</h2>  
+<div id="cartList"></div>  
+<h3 id="total">Total: 0</h3>  
+<button onclick="showSection('checkoutSection')">Checkout</button>  
+</section>  
+
+<!-- CHECKOUT -->  
+<section id="checkoutSection" style="display:none;">  
+<h2>🧾 Checkout</h2>  
+<input id="name" placeholder="Name" style="width:90%;padding:10px;margin:5px;"><br>  
+<input id="phone" placeholder="Phone" style="width:90%;padding:10px;margin:5px;"><br>  
+<input id="address" placeholder="Address" style="width:90%;padding:10px;margin:5px;"><br>  
+<button onclick="placeOrder()">Place Order on WhatsApp</button>  
+</section>  
+
+<!-- NAV -->  
+<div class="bottom-nav">  
+
+<div class="nav-left">  
+<div class="nav-item" onclick="showSection('homeSection')">  
+<span>🏠</span>Home  
+</div>  
+
+<div class="nav-item" onclick="showSection('cartSection')">  
+<span>🛒</span>Cart  
+<div class="badge" id="cartBadge">0</div>  
+</div>  
+</div>  
+
+<div class="shop-btn" onclick="showSection('shopSection')">🛍️</div>  
+
+<div class="nav-right">  
+<div class="nav-item" onclick="showSection('checkoutSection')">  
+<span>💳</span>Pay  
+</div>  
+
+<div class="nav-item" onclick="openSupport()">  
+<span>☎️</span>Help  
+</div>  
+</div>  
+
+</div>  
 
 <script>
+let cart=[];
+let total=0;
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-/* ADD CART */
-function addToCart(name, price){
-    cart.push({name, price});
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCart();
+function toast(msg){
+let t=document.getElementById("toast");
+t.innerText=msg;
+t.style.opacity="1";
+setTimeout(()=>{t.style.opacity="0";},2000);
 }
 
-/* BUY NOW */
-function buyNow(name, price){
-    let msg = `🛍️ Buy Now Order:%0A- ${name} Rs ${price}`;
-    window.open("https://wa.me/923305356749?text=" + msg, "_blank");
+function addToCart(name,price){
+cart.push({name,price});
+total+=price;
+document.getElementById("cartBadge").innerText=cart.length;
+updateCart();
+toast("✅ Added to cart");
 }
 
-/* UPDATE CART */
 function updateCart(){
-
-    let list = document.getElementById("cartList");
-    let totalBox = document.getElementById("totalPrice");
-
-    list.innerHTML = "";
-
-    let total = 0;
-
-    cart.forEach((item,i)=>{
-        total += item.price;
-
-        let li = document.createElement("li");
-        li.innerHTML = `
-            ${item.name} - Rs ${item.price}
-            <button onclick="removeItem(${i})">Cancel</button>
-        `;
-        list.appendChild(li);
-    });
-
-    totalBox.innerText = "Total: Rs " + total;
+let html="";
+cart.forEach(i=>{
+html+=i.name+" - Rs "+i.price+"<br>";
+});
+document.getElementById("cartList").innerHTML=html;
+document.getElementById("total").innerText="Total: Rs "+total;
 }
 
-/* REMOVE */
-function removeItem(i){
-    cart.splice(i,1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCart();
+function buyNow(name,price){
+let msg = `🛍️ ORDER REQUEST%0AProduct: ${name}%0APrice: ${price}`;
+window.open("https://wa.me/923305356749?text="+encodeURIComponent(msg));
 }
 
-/* CHECKOUT */
-function checkout(){
-    let msg = "🛒 Order:%0A";
-    let total = 0;
+function placeOrder(){
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let address=document.getElementById("address").value;
 
-    cart.forEach(item=>{
-        msg += item.name + " Rs " + item.price + "%0A";
-        total += item.price;
-    });
+if(!name||!phone||!address){toast("⚠️ Fill all fields");return;}
 
-    msg += "%0ATotal: " + total;
+let msg="🛒 NEW ORDER%0AName: "+name+"%0A";
+cart.forEach(i=>msg+=i.name+" Rs "+i.price+"%0A");
 
-    window.open("https://wa.me/923305356749?text=" + msg, "_blank");
+window.open("https://wa.me/923305356749?text="+encodeURIComponent(msg));
 }
 
-/* SWITCH */
+function search(){
+let val=document.getElementById("search").value.toLowerCase();
+let cards=document.querySelectorAll(".product-card");
+cards.forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(val)?"block":"none";
+});
+}
+
 function showSection(id){
-    document.getElementById("homeSection").style.display="none";
-    document.getElementById("shopSection").style.display="none";
-    document.getElementById("cartSection").style.display="none";
+document.querySelectorAll("section").forEach(s=>s.style.display="none");
+document.getElementById(id).style.display="block";
 
-    document.getElementById(id).style.display="block";
+let nav=document.querySelector(".bottom-nav");
+nav.style.display = (id==="homeSection") ? "none" : "flex";
 }
 
-/* START */
-window.onload = function(){
-    updateCart();
-    showSection("homeSection");
-};
+function openSupport(){
+window.open("https://wa.me/923305356749");
+}
 
+window.onload=()=>{
+showSection("homeSection");
+}
+function toggleChat(){
+let box=document.getElementById("chatBox");
+box.style.display = (box.style.display==="flex") ? "none" : "flex";
+box.style.flexDirection="column";
+}
+
+function sendMsg(){
+let input=document.getElementById("chatInput");
+let msg=input.value.trim();
+if(msg==="") return;
+
+let chat=document.getElementById("chatMessages");
+
+// user message
+chat.innerHTML += `<div><b>You:</b> ${msg}</div>`;
+
+// bot reply delay (real feel)
+setTimeout(()=>{
+
+let reply=getReply(msg.toLowerCase());
+
+chat.innerHTML += `<div><b>Bot:</b> ${reply}</div>`;
+chat.scrollTop=chat.scrollHeight;
+
+},800);
+
+input.value="";
+}
+
+// SMART RESPONSES
+function getReply(msg){
+
+if(msg.includes("hi") || msg.includes("hello")){
+return "Hello 👋 Welcome to Glow Beauty!";
+}
+
+if(msg.includes("price")){
+return "💰 Prices are shown in shop section.";
+}
+
+if(msg.includes("order")){
+return "🛍️ Go to checkout to place your order.";
+}
+
+if(msg.includes("delivery")){
+return "🚚 Delivery time is 2–5 days in Pakistan.";
+}
+
+if(msg.includes("help")){
+return "☎️ Click Help button for support.";
+}
+
+if(msg.includes("discount") || msg.includes("sale")){
+return "🔥 We have up to 50% OFF on selected products!";
+}
+
+return "🤖 Sorry, I didn’t understand. Try asking about price, order, or delivery.";
+}
 </script>
+<!-- AI CHAT BOT -->
+<div class="chat-btn" onclick="toggleChat()">💬</div>
 
-</body>
+<div class="chat-box" id="chatBox">
+
+    <div class="chat-header">
+        🤖 Glow Beauty AI Assistant
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+        <div><b>Bot:</b> Hi 👋 I’m your Glow Beauty assistant!</div>
+    </div>
+
+    <div class="chat-input">
+        <input id="chatInput" placeholder="Type message...">
+        <button onclick="sendMsg()">Send</button>
+    </div>
+
+</div>
+<!-- PRODUCT DETAIL POPUP -->
+<div class="product-detail" id="productDetail">
+
+    <div class="detail-box">
+
+        <button class="close-btn" onclick="closeDetail()">X</button>
+
+        <img id="detailImg">
+
+        <h2 id="detailName"></h2>
+
+        <p id="detailPrice" style="color:#ff4da6;font-weight:bold;"></p>
+
+        <button onclick="addToCart(detailCurrent.name,detailCurrent.price)">Add to Cart</button>
+        <button onclick="buyNow(detailCurrent.name,detailCurrent.price)">Buy Now</button>
+
+    </div>
+
+</div>
+</body>  
 </html>
