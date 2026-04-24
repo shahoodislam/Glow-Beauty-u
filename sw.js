@@ -1,4 +1,4 @@
-const CACHE_NAME = "glow-beauty-v1";
+const CACHE_NAME = "glow-v3";
 
 const urlsToCache = [
   "./",
@@ -8,17 +8,17 @@ const urlsToCache = [
   "./icon.png"
 ];
 
-// Install
+// INSTALL
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-    .then(cache => {
+    caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(urlsToCache);
     })
   );
+  self.skipWaiting();
 });
 
-// Activate
+// ACTIVATE
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -31,14 +31,14 @@ self.addEventListener("activate", event => {
       );
     })
   );
+  self.clients.claim();
 });
 
-// Fetch
+// FETCH
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request)
-    .then(response => {
-      return response || fetch(event.request);
+    fetch(event.request).catch(() => {
+      return caches.match(event.request);
     })
   );
 });
